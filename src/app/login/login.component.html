@@ -1,0 +1,20 @@
+<div class="ui-g">
+    <p-card class="center">
+        <div class="login-card">
+            <span style="text-align: center;"><h2>User Login</h2></span>
+            <span class="p-input-icon-left" style="margin: .5em;">
+                <i class="pi pi-user"></i>
+                <input type="text" pInputText placeholder="Username" [(ngModel)]="username">         
+            </span>
+            <span class="p-input-icon-left" style="margin: .5em;">
+                <i class="pi pi-key"></i>
+                <input type="password" pPassword placeholder="Password" [feedback]="false"
+                    [(ngModel)]="password">         
+            </span>
+            <span style="margin: .5em;">
+                <button pButton type="button" label="Login" style="width: 100%;"
+                (click)="onClick()"></button>
+            </span>
+        </div>
+    </p-card>
+</div>
