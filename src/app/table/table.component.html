@@ -1,0 +1,122 @@
+<div class="row">
+    <p-table #dt [value]="employees" [paginator]="true" [rows]="5" 
+    [rowsPerPageOptions]="options" [showCurrentPageReport]="true"
+    [globalFilterFields]="['username', 'firstName', 'lastName']"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <ng-template pTemplate="caption">
+            <div class="row">
+                <div class="col-6">
+                    <h2>List of Employees</h2>
+                </div>
+                <div class="col-6" style="text-align: right;">
+                    <span>
+                        <button pButton type="button" label="Add Employee" (click)="onAdd()"></button>
+                    </span>&nbsp;
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" placeholder="Search Name" 
+                        (input)="applyFilterGlobal($event)"/>
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+                    {{col.header}}
+                    <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-employee>
+            <tr style="cursor: pointer;">
+                <td *ngFor="let col of cols" style="word-wrap: break-word;">
+                    {{employee[col.field]}}
+                </td>
+                <td>
+                    <div class="col">
+                        <span class="action"
+                        (click)="onDisplay(employee)"><i class="pi pi-pencil" style="color: gold;"></i></span>&nbsp;
+                        <span class="action"
+                        (click)="onDelete(employee)"><i class="pi pi-trash" style="color: crimson;"></i></span>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="Edit Employee" [(visible)]="display" [style]="{width: '50vw'}">
+    <div class="col">
+        <div class="row my-2">
+            <div class="col-4">
+                Username
+            </div>
+            <div class="col-8">
+                <input pInputText type="text" [(ngModel)]="editableEmp.username"/>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                First Name
+            </div>
+            <div class="col-8">
+                <input pInputText type="text" [(ngModel)]="editableEmp.firstName"/>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Last Name
+            </div>
+            <div class="col-8">
+                <input pInputText type="text" [(ngModel)]="editableEmp.lastName"/>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Email
+            </div>
+            <div class="col-8">
+                <input pInputText type="text" [(ngModel)]="editableEmp.email"/>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Birth Date
+            </div>
+            <div class="col-8">
+                <input pInputText type="datetime" [(ngModel)]="editableEmp.birthDate"/>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Basic Salary
+            </div>
+            <div class="col-8">
+                <input pInputText type="text" [(ngModel)]="editableEmp.basicSalary"/>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Group
+            </div>
+            <div class="col-8">
+                <input pInputText type="text" [(ngModel)]="editableEmp.group"/>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-4">
+                Description
+            </div>
+            <div class="col-8">
+                <textarea pInputTextarea [(ngModel)]="editableEmp.description"
+                [style]="{ width: '100%' }"></textarea>
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <button pButton type="button" label="Edit Employee" style="width: 100%;"
+            (click)="onEdit()"></button>
+    </p-footer>
+</p-dialog>
